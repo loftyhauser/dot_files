@@ -1,0 +1,22 @@
+[user]
+	name = Andrew Lofthouse
+	email = loftyhauser@gmail.com
+[color]
+	diff = auto
+	status = auto
+	branch = auto
+	ui = true
+[merge]
+	tool = meld
+[diff]
+	tool = gvimdiff
+[alias]
+	satash-unapply = !git stash show -p | git apply -R
+[help]
+	autocorrect = 1
+[core]
+	editor = vim
+[alias]
+	tree = log --oneline --decorate --graph
+	alltree = log --oneline --decorate --graph --all
+	meld = !/home/afiten1/fac/alofthou/tools/binary/bin/git-meld.pl
