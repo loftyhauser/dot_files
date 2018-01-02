@@ -1,0 +1,4 @@
+%_topdir	/run/media/alofthou/Mirror/mirrors/lofty/el7
+%dist		.lofty.el7
+%packager	Andrew Lofthouse <loftyhauser@gmail.com>
+%_desktopdir    %{_datadir}/applications
