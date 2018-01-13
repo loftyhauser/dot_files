@@ -15,8 +15,8 @@ set number
 set wildmenu
 "filetype plugin indent on
 set background=light
-autocmd bufnewfile *.[c] so /home/alofthou/git-projects/dot_files/c-header.txt
-autocmd bufnewfile *.[h] so /home/alofthou/git-projects/dot_files/h-header.txt
+autocmd bufnewfile *.c so /home/alofthou/git-projects/dot_files/c-header.txt
+autocmd bufnewfile *.h so /home/alofthou/git-projects/dot_files/h-header.txt
 autocmd bufnewfile *.[ch] exe "1," . 10 . "g/File Name :.*/s//File Name : " .expand("%")
 autocmd bufnewfile *.[ch] exe "1," . 10 . "g/Creation Date :.*/s//Creation Date : " .strftime("%Y-%m-%d")
 autocmd Bufwritepre,filewritepre *.[ch] execute "normal ma"
