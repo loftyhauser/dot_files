@@ -1,2 +1,2 @@
 colorscheme evening
-set guifont=Monospace\ Regular\ 12
+set guifont=Monospace\ Regular\ 14
