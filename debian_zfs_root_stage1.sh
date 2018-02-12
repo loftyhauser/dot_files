@@ -117,7 +117,7 @@ echo ${HOSTNAME} > /mnt/etc/hostname
 ## 4.2 Configure the network interface
 echo "Configuring network interface.\n"
 echo "127.0.1.1       debian" >> /etc/hosts
-cat > /mnt/etc/network/interfaces.d/${IFDEVICE} < EOF
+cat >> /mnt/etc/network/interfaces.d/${IFDEVICE} << EOF
 auto ${IFDEVICE}
 iface ${IFDEVICE} inet dhcp
 EOF
