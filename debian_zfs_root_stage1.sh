@@ -40,14 +40,16 @@ sgdisk --zap-all /dev/disk/by-id/${HARDDISK}
 
 ## BIOS boot
 echo "Creating BIOS boot partition.\n"
-gdisk -a1 -n2:34:2047  -t2:EF02 /dev/disk/by-id/${HARDDISK}
+sgdisk -a1 -n2:34:2047  -t2:EF02 /dev/disk/by-id/${HARDDISK}
 ## EFI boot
 # sgdisk     -n3:1M:+512M -t3:EF00 /dev/disk/by-id/${HARDDISK}
 
 ## unencrypted or cCryptfs
 echo "Creating standard partition and ZFS pool (no LUKS).\n"
- sgdisk     -n1:0:0      -t1:BF01 /dev/disk/by-id/${HARDDISK}
- zpool create -o ashift=12 -O atime=off -O canmount=off -O compression=lz4 -O normalization=formD -O mountpoint=/ -R /mnt rpool /dev/disk/by-id/${HARDDISK}-part1
+sgdisk     -n1:0:0      -t1:BF01 /dev/disk/by-id/${HARDDISK}
+echo "Waiting for udev..."
+sleep 2
+zpool create -o ashift=12 -O atime=off -O canmount=off -O compression=lz4 -O normalization=formD -O mountpoint=/ -R /mnt rpool /dev/disk/by-id/${HARDDISK}-part1
 
 
 ## LUKS
