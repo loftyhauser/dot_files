@@ -1,7 +1,7 @@
 
-HARDDISK = ata-VBOX_HARDDISK_VB882956a1-a319cf41
-HOSTNAME = debian
-IFDEVICE = enp0s3
+HARDDISK=ata-VBOX_HARDDISK_VB882956a1-a319cf41
+HOSTNAME=debian
+IFDEVICE=enp0s3
 
 ## 1. Prepare the install environment
 
@@ -14,8 +14,8 @@ echo "Starting stage1.\n"
 #$ sudo service ssh restart
 
 ## 1.3 Become root
-echo "Becoming root.\n"
-sudo -i
+echo "Run as root.\n"
+#sudo -i
 
 ## 1.4 add contrib
 echo "Adding contrib to sources.list.\n"
@@ -25,7 +25,8 @@ apt update
 ## 1.5 install ZFS in the Live CD env
 echo "Installing ZFS in the Live CD environment.\n"
 apt install --yes debootstrap gdisk linux-headers-$(uname -r)
-apt install --yes zfs-dkms zfs-initramfs
+apt install --yes zfs-dkms #zfs-initramfs
+/sbin/modprobe zfs
 
 ## 2. Disk Formatting
 echo "Formatting disks.\n"
