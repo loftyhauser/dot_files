@@ -15,9 +15,9 @@ apt update
 
 echo "Configuring locale.\n"
 apt install --yes locales
-#dpkg-reconfigure locales
-locale-gen en_US.UTF-8
-echo LANG=en_US.UTF-8 > /etc/default/locale
+dpkg-reconfigure locales
+#locale-gen en_US.UTF-8
+#echo LANG=en_US.UTF-8 > /etc/default/locale
 
 echo "Configuring timezone.\n"
 dpkg-reconfigure tzdata

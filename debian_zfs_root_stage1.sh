@@ -128,9 +128,9 @@ echo "Bind mounting virtual filesystems for new system.\n"
 mount --rbind /dev  /mnt/dev
 mount --rbind /proc /mnt/proc
 mount --rbind /sys  /mnt/sys
-cp debian_zfs_root_stage2.sh /mnt/root
+cp -av /home/user/dot_files /mnt/root
 
-echo"Finished with stage1.  Now chrooting to new environment for stage2.\n"
+echo "Finished with stage1.  Now chrooting to new environment for stage2.\n"
 chroot /mnt /bin/bash --login
 ## end of stage 1
 
