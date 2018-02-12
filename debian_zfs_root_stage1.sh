@@ -21,7 +21,7 @@ echo "Run as root.\n"
 echo "Adding contrib to sources.list.\n"
 echo "deb http://ftp.debian.org/debian stretch main contrib" > /etc/apt/sources.list
 apt update
-apt install vim git htop
+apt install --yes vim git htop
 
 ## 1.5 install ZFS in the Live CD env
 echo "Installing ZFS in the Live CD environment.\n"
@@ -35,7 +35,7 @@ echo "Formatting disks.\n"
 ## clear previous partitions
 echo "Clearing previous partitions.\n"
 apt install --yes mdadm
-mdadm --zero-superblock --force /dev/disk/by-id/${HARDDISK}
+#mdadm --zero-superblock --force /dev/disk/by-id/${HARDDISK}
 sgdisk --zap-all /dev/disk/by-id/${HARDDISK}
 
 ## BIOS boot
