@@ -44,8 +44,8 @@ ilm() # info like man
 
 #module add use.own
 #module add binary/krb5
-export PATH=/home/alofthou/local/ossh/bin:/home/alofthou/local/krb5/bin:$PATH
-export KRB5_CONFIG=/home/alofthou/local/krb5/etc/krb5.conf
+export PATH=/usr/local/ossh/bin:/usr/local/krb5/bin:$PATH
+export KRB5_CONFIG=/usr/local/krb5/etc/krb5.conf
 
 # added by Anaconda3 4.2.0 installer
 #export PATH="/home/alofthou/anaconda3/bin:$PATH"
