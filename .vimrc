@@ -8,17 +8,6 @@
 set nocompatible        "Don't limit to vi
 call plug#begin()
 
-" Colorschemes
-Plug 'kristijanhusak/vim-hybrid-material'
-Plug 'cocopon/iceberg.vim'
-Plug 'arcticicestudio/nord-vim'
-Plug 'sjl/badwolf'
-Plug 'lifepillar/vim-solarized8'
-Plug 'scheakur/vim-scheakur'
-Plug 'Badacadabra/vim-archery'
-Plug 'sainnhe/edge'
-"Plug 'branwright1/salvation-vim'
-
 " Other
 Plug 'preservim/NERDTree'
 Plug 'preservim/NERDcommenter'
@@ -39,6 +28,7 @@ Plug 'derekwyatt/vim-protodef'
 "Plug 'matze/vim-move'
 "Plug 'junegunn/fzf.vim'
 Plug 'ycm-core/YouCompleteMe'
+Plug 'cdelledonne/vim-cmake'
 call plug#end()
 filetype indent plugin on
 
@@ -49,7 +39,7 @@ filetype indent plugin on
 set background=dark     " Set background 
 "set t_Co=256
 "colorscheme colorful256
-set colorcolumn=110
+set colorcolumn=120
 highlight ColorColumn ctermbg=darkgray
 set cursorline
 highlight CursorLine cterm=NONE ctermbg=8 ctermfg=NONE
@@ -94,6 +84,13 @@ let g:ctrlsf_regex_pattern = 0              " Use absolute search by default
 let g:ctrlsf_position = 'right'             " Position the search window
 let g:ctrlsf_winsize = 46                   " Width or height of the search window
 let g:ctrlsf_default_root = 'cwd'           " Search from the current working directory
+
+" ------------------------------------------------------------
+" mesonic
+" ------------------------------------------------------------
+
+let b:meson_command = './meson.py'
+let b:meson_ninja_command = './ninja'
 
 " ------------------------------------------------------------
 " FSWITCH
@@ -178,7 +175,9 @@ set expandtab
 set autoindent
 "set nowrap
 set ignorecase smartcase
+if exists('+termwinsize')
 set termwinsize=12x0        " Set terminal size
+endif
 set splitbelow              " Always split below
 set mouse=a
 
@@ -190,10 +189,10 @@ set mouse=a
 "General
 let mapleader=" "
 "nnoremap <space> <nop>
-nmap        <C-B>     :buffers<CR>
-nmap        <C-J>     :term<CR>
+"nmap        <C-B>     :buffers<CR>
+"nmap        <C-J>     :term<CR>
 
-"NERDTre
+"NERDTree
 map <F5> :NERDTreeToggle<CR>
 
 "tagbar
@@ -222,10 +221,6 @@ nmap <C-Z> :vsplit <bar> :wincmd l <bar> :FSRight<CR>
 "YCM
 nmap        <C-L>     :lopen<CR>
 nmap        <C-L>l    :lclose<CR>
-
-" Dispatch
-" Open vim-dispatch window and scroll to bottom
-nnoremap <C-m>m :Copen<CR> <bar> G
 
 " --------------------------------------------------------------------------------
 " BUILD SYSTEM
@@ -291,6 +286,9 @@ let g:netrw_liststyle=3                 " tree view
 " Use CTRL-] to jump to tag; g-CTRL-] for list of ambiguous matches, CTRL-t to return
 command! MakeTags !exuberant-ctags -R *
 
+au BufRead,BufNewFile *.F90         setfiletype fortran
+au BufRead,BufNewFile *.F95         setfiletype fortran
+au BufRead,BufNewFile *.F           setfiletype fortran
 " --------------------------------------------------------------------------------
 " Old stuff
 " --------------------------------------------------------------------------------
