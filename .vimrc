@@ -19,6 +19,7 @@ Plug 'tpope/vim-dispatch'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-unimpaired'
 Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 Plug 'igankevich/mesonic'
 Plug 'sheerun/vim-polyglot'
 Plug 'dyng/ctrlsf.vim'
@@ -28,7 +29,8 @@ Plug 'derekwyatt/vim-protodef'
 "Plug 'matze/vim-move'
 "Plug 'junegunn/fzf.vim'
 Plug 'ycm-core/YouCompleteMe'
-Plug 'cdelledonne/vim-cmake'
+"Plug 'cdelledonne/vim-cmake'
+Plug 'ilyachur/cmake4vim'
 call plug#end()
 filetype indent plugin on
 
@@ -154,6 +156,23 @@ let g:ycm_enable_diagnostic_highlighting = 1    " Highlight regions of diagnosti
 let g:ycm_echo_current_diagnostic = 1           " Echo line's diagnostic that cursor is on
 
 " ------------------------------------------------------------
+" CMAKE
+" ------------------------------------------------------------
+
+"let g:cmake_log_file = "/home/alofthou/vim-cmake.log"
+
+" ------------------------------------------------------------
+" AIRLINE
+" ------------------------------------------------------------
+
+let g:airline#extensions#tabline#enabled = 1
+
+" ------------------------------------------------------------
+" FUGITIVE
+" ------------------------------------------------------------
+
+
+" ------------------------------------------------------------
 " VIM SETTINGS
 " ------------------------------------------------------------
 
@@ -180,6 +199,7 @@ set termwinsize=12x0        " Set terminal size
 endif
 set splitbelow              " Always split below
 set mouse=a
+set updatetime=100          " Updates every 100ms
 
 " ------------------------------------------------------------
 " MAPPINGS
