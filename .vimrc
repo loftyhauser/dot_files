@@ -23,14 +23,15 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'igankevich/mesonic'
 Plug 'sheerun/vim-polyglot'
 Plug 'dyng/ctrlsf.vim'
-Plug 'derekwyatt/vim-fswitch'
-Plug 'derekwyatt/vim-protodef'
+Plug 'kien/ctrlp.vim'
+"Plug 'derekwyatt/vim-fswitch'
+"Plug 'derekwyatt/vim-protodef'
 "Plug 'Yggdroot/indentLine'
 "Plug 'matze/vim-move'
 "Plug 'junegunn/fzf.vim'
 Plug 'ycm-core/YouCompleteMe'
-"Plug 'cdelledonne/vim-cmake'
-Plug 'ilyachur/cmake4vim'
+Plug 'cdelledonne/vim-cmake'
+"Plug 'ilyachur/cmake4vim'
 call plug#end()
 filetype indent plugin on
 
@@ -103,10 +104,10 @@ let b:meson_ninja_command = './ninja'
 "
 " au! BufEnter *.cpp let b:fswitchdst = 'hpp,h' | let b:fswitchlocs = '../inc'
 
-au! BufEnter *.cpp let b:fswitchdst = 'hpp,h'
-au! BufEnter *.hpp let b:fswitchdst = 'cpp,c'
-au! BufEnter *.c   let b:fswitchdst = 'h'
-au! BufEnter *.h   let b:fswitchdst = 'c'
+"au! BufEnter *.cpp let b:fswitchdst = 'hpp,h'
+"au! BufEnter *.hpp let b:fswitchdst = 'cpp,c'
+"au! BufEnter *.c   let b:fswitchdst = 'h'
+"au! BufEnter *.h   let b:fswitchdst = 'c'
 
 " fswitchdst  - Denotes the files extensions that is the target extension of
 "               the current file's companion file.
@@ -120,12 +121,12 @@ au! BufEnter *.h   let b:fswitchdst = 'c'
 " ------------------------------------------------------------
 
 " Pull in prototypes
-nmap <buffer> <silent> <leader> ,PP
+"nmap <buffer> <silent> <leader> ,PP
 " Pull in prottypes without namespace definition
-nmap <buffer> <silent> <leader> ,PN
+"nmap <buffer> <silent> <leader> ,PN
 
 " NOTE: This doesn't seem to disable the sorting.
-let g:disable_protodef_sorting = 1
+"let g:disable_protodef_sorting = 1
 
 " ------------------------------------------------------------
 " YCM
@@ -192,7 +193,7 @@ set tabstop=4
 set shiftwidth=4
 set expandtab
 set autoindent
-"set nowrap
+set nowrap
 set ignorecase smartcase
 if exists('+termwinsize')
 set termwinsize=12x0        " Set terminal size
@@ -200,6 +201,7 @@ endif
 set splitbelow              " Always split below
 set mouse=a
 set updatetime=100          " Updates every 100ms
+set foldmethod=syntax
 
 " ------------------------------------------------------------
 " MAPPINGS
@@ -213,7 +215,7 @@ let mapleader=" "
 "nmap        <C-J>     :term<CR>
 
 "NERDTree
-map <F5> :NERDTreeToggle<CR>
+"map <F5> :NERDTreeToggle<CR>
 
 "tagbar
 map <F8> :TagbarToggle<CR>
@@ -236,7 +238,7 @@ inoremap <C-F>t <Esc> :CtrlSFToggle<CR>
 
 "fswitch
 " split window and add companion file to the right
-nmap <C-Z> :vsplit <bar> :wincmd l <bar> :FSRight<CR>
+"nmap <C-Z> :vsplit <bar> :wincmd l <bar> :FSRight<CR>
 
 "YCM
 nmap        <C-L>     :lopen<CR>
@@ -250,38 +252,38 @@ nmap        <C-L>l    :lclose<CR>
 " --------------------------------------
 
 " Always render sign column so editor doesn't snap when there's a YCM error
-set signcolumn=yes
+"set signcolumn=yes
 
 " Mappings
 " --------------------------------------
 
 " Open vim-dispatch window and scroll to bottom
-nnoremap    <C-m>m    :Copen<CR> <bar> G
+"nnoremap    <C-m>m    :Copen<CR> <bar> G
 
 " Build debug and release targets
-nnoremap    <C-m>bd   :Dispatch! make -C build/Debug<CR>
-nnoremap    <C-m>br   :Dispatch! make -C build/Release<CR>
+"nnoremap    <C-m>bd   :Dispatch! make -C build/Debug<CR>
+"nnoremap    <C-m>br   :Dispatch! make -C build/Release<CR>
 
 " Functions
 " ---------------------------------------
 
 " Map <F6> to the Debug executable with passed filename
-function SetBinaryDebug(filename)
-    let bpath = getcwd() . "/bin/Debug/" . a:filename
-    execute "nnoremap <F6> :Dispatch "
-            \ bpath
-            \ . " <CR> <bar> :Copen<CR>"
-    echo "<F6> will run: " . bpath
-endfunction
+"function SetBinaryDebug(filename)
+"    let bpath = getcwd() . "/bin/Debug/" . a:filename
+"    execute "nnoremap <F6> :Dispatch "
+"            \ bpath
+"            \ . " <CR> <bar> :Copen<CR>"
+"    echo "<F6> will run: " . bpath
+"endfunction
 
 " Map <F7> to the Release executable with passed filename
-function SetBinaryRelease(filename)
-    let bpath = getcwd() . "/bin/Release/" . a:filename 
-    execute "nnoremap <F7> :Dispatch "
-                \ bpath 
-                \ . "<CR> <bar> :Copen<CR>"
-    echo "<F7> will run: " . bpath
-endfunction
+"function SetBinaryRelease(filename)
+"    let bpath = getcwd() . "/bin/Release/" . a:filename 
+"    execute "nnoremap <F7> :Dispatch "
+"                \ bpath 
+"                \ . "<CR> <bar> :Copen<CR>"
+"    echo "<F7> will run: " . bpath
+"endfunction
 
 
 " --------------------------------------------------------------------------------
