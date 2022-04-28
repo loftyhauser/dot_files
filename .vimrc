@@ -92,8 +92,8 @@ let g:ctrlsf_default_root = 'cwd'           " Search from the current working di
 " mesonic
 " ------------------------------------------------------------
 
-let b:meson_command = './meson.py'
-let b:meson_ninja_command = './ninja'
+let b:meson_command = '/home/alofthou/Workspace/CFD/SU2/SU2.git/meson.py'
+let b:meson_ninja_command = '/home/alofthou/Workspace/CFD/SU2/SU2.git//ninja'
 
 " ------------------------------------------------------------
 " FSWITCH
@@ -252,7 +252,7 @@ nmap        <C-L>l    :lclose<CR>
 " --------------------------------------
 
 " Always render sign column so editor doesn't snap when there's a YCM error
-"set signcolumn=yes
+set signcolumn=yes
 
 " Mappings
 " --------------------------------------
@@ -306,7 +306,7 @@ let g:netrw_liststyle=3                 " tree view
 
 " Create 'tags' file
 " Use CTRL-] to jump to tag; g-CTRL-] for list of ambiguous matches, CTRL-t to return
-command! MakeTags !exuberant-ctags -R *
+"command! MakeTags !exuberant-ctags -R *
 
 au BufRead,BufNewFile *.F90         setfiletype fortran
 au BufRead,BufNewFile *.F95         setfiletype fortran
