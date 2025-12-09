@@ -1,4 +1,4 @@
-" vim: foldmethod=marker
+"" vim: foldmethod=marker
 
 " Load vim-plug {{{
 " Install vim plug if not installed
@@ -103,8 +103,8 @@ vnoremap <S-j> 5j
 nnoremap <S-k> 5k
 vnoremap <S-k> 5k
 
-" Map r to redo
-nmap r :redo<CR>
+" Map rd to redo
+nmap rd :redo<CR>
 
 " Enable folding
 set foldenable
@@ -136,6 +136,51 @@ call plug#begin()
     Plug 'nvim-tree/nvim-web-devicons'
     Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.1' } " plugin for tab line at the top
     Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
+    Plug 'airblade/vim-gitgutter'
+    Plug 'jreybert/vimagit'
+    Plug 'tpope/vim-fugitive'
+    Plug 'tpope/vim-rhubarb'
 call plug#end()
 " }}}
 colorscheme onedark
+
+" gitgutter plugin {{{
+" These settings come from https://jakobgm.com/posts/vim/git-integration/index.html
+let g:gitgutter_sign_added = '+'
+let g:gitgutter_sign_modified = '>'
+let g:gitgutter_sign_removed = '-'
+let g:gitgutter_sign_removed_first_line = '^'
+let g:gitgutter_sign_modified_removed = '<'
+"let g:gitgutter_override_sign_column_highlight = 1
+"highlight SignColumn guibg=bg
+"highlight SignColumn ctermbg=bg
+" Update sign column every quarter second
+set updatetime=250
+" Jump between hunks
+nmap <Leader>gn <Plug>GitGutterNextHunk " git next
+nmap <Leader>gp <Plut>GitGutterPrevHunk " git previous
+" Hunk-add and hunk-revert for chunk staging
+nmap <Leader>ga <Plug>GitGutterStageHunk " git add (chunk)
+nmap <Leader>gu <Plug>GitGutterUndoHunk  " git undo (chunk)
+" }}}
+
+" vimagit plugin {{{
+" Open vimagit pane
+nnoremap <leader>gs :Magit<CR>  " git status
+" Push to remote
+nnoremap <leader>gP :! git push<CR> " git push
+" Enable deletion of untracked files in Magit
+" let g:magit_discard_untracked_do_delete=1
+" }}}
+
+" vim-fugitive  and vim-rhubarb plugins {{{
+" Show commits for every source line
+nnoremap <Leader>gb :Gblame<CR> " git blame
+" Open current line int he browser
+"nnoremap <Leader>gb :.Gbrowse<CR>
+" Open visual selection in the browser
+"vnoremap <Leader>gb :Gbrowse<CR>
+"Add the entire file to the staging area
+"nnoremap <Leader>gaf :Gw<CR>    "git add file
+
+" }}}
