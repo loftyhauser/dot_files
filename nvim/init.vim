@@ -1,4 +1,4 @@
-"" vim: foldmethod=marker
+" vim: foldmethod=marker
 
 " Load vim-plug {{{
 " Install vim plug if not installed
