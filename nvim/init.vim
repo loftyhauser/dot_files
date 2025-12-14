@@ -140,9 +140,19 @@ call plug#begin()
     Plug 'jreybert/vimagit'
     Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
+	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
 call plug#end()
 " }}}
+
+" Plugin: olimorris/onedarkpro.nvim {{{
 colorscheme onedark
+set background=dark " Optional: change to 'light' for the light version
+" }}}
+
+" Plugin: catppuccin/nvim {{{
+"colorscheme catppuccin
+set background=dark " Optional: change to 'light' for the light version
+" }}}
 
 " gitgutter plugin {{{
 " These settings come from https://jakobgm.com/posts/vim/git-integration/index.html
@@ -157,11 +167,11 @@ let g:gitgutter_sign_modified_removed = '<'
 " Update sign column every quarter second
 set updatetime=250
 " Jump between hunks
-nmap <Leader>gn <Plug>GitGutterNextHunk " git next
-nmap <Leader>gp <Plut>GitGutterPrevHunk " git previous
+nmap <Leader>gn <Plug>(GitGutterNextHunk) " git next
+nmap <Leader>gp <Plug>(GitGutterPrevHunk) " git previous
 " Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga <Plug>GitGutterStageHunk " git add (chunk)
-nmap <Leader>gu <Plug>GitGutterUndoHunk  " git undo (chunk)
+nmap <Leader>ga <Plug>(GitGutterStageHunk) " git add (chunk)
+nmap <Leader>gu <Plug>(GitGutterUndoHunk)  " git undo (chunk)
 " }}}
 
 " vimagit plugin {{{
