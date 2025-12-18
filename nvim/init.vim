@@ -130,6 +130,12 @@ set noequalalways
 compiler gcc
 " }}}
 
+" Settings: wildmenu {{{
+" This remaps the keys so up and down works in completion menus
+"cnoremap <Up> <C-p>
+"cnoremap <Down> <C-n>
+" }}}
+
 " Load vim plugins {{{
 call plug#begin()
     "Plug 'olimorris/onedarkpro.nvim'
@@ -144,6 +150,8 @@ call plug#begin()
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
 	Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " File explorer
 	Plug 'tpope/vim-fugitive' " Git integration
+	Plug 'vim-airline/vim-airline' " Visual status line indicators
+	Plug 'vim-airline/vim-airline-themes' " Themes for airline
 call plug#end()
 " }}}
 
@@ -349,5 +357,15 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \ 'Clean'     :'✔︎',
 \ 'Unknown'   :'?',
 \ }
+" }}}
+
+
+" Plugin: vim-airline/vim-airline {{{
+let g:airline_powerline_fonts = 0
+let g:airline_theme = 'deus'
+" Enable wordcount
+let g:airline#extensions#wordcount#enabled = 0
+" Add notes to filetypes
+let g:airline#extensions#wordcount#filetypes = 'notes|help|markdown|rst|org|text|asciidoctor|tex|mail|plaintext|context'
 " }}}
 
