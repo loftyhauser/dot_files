@@ -30,7 +30,7 @@ set encoding=utf-8
 "   blank space. This option is off by default.
 " - w: Recognize only whitespace when breaking lines with gq. This option is off by default.
 set formatoptions=cronm
-" This sets the width of a tab character to 2 spaces.
+" This sets the width of a tab character to 4 spaces.
 set tabstop=4
 " This sets the number of spaces used when the <Tab> key is pressed in insert mode to 4.
 set softtabstop=4
@@ -40,9 +40,9 @@ set shiftwidth=4
 " This setting enables automatic indentation, which will copy the indentation
 " of the current line when starting a new line.
 set autoindent
-" This enables the automatic conversion of tabs to spaces when you press the
+" This disables the automatic conversion of tabs to spaces when you press the
 " <Tab> key.
-set expandtab
+set noexpandtab
 " This enables the use of the mouse in all modes (normal, visual, insert,
 " command-line, etc.).
 set mouse=a
@@ -155,7 +155,7 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 " }}}
 
 " Plugin: catppuccin/nvim {{{
-colorscheme catppuccin
+"colorscheme catppuccin
 set background=dark " Optional: change to 'light' for the light version
 " }}}
 
@@ -197,15 +197,26 @@ nnoremap <leader>gP :! git push<CR> " git push
 endif
 " }}}
 
-" Plugin: tpope/vim-fugitive tpope/vim-rhubarb {{{
+" Plugin: tpope/vim-fugitive {{{
 if has_key(plugs, 'vim-fugitive')
-" Show commits for every source line
-nnoremap <Leader>gb :Gblame<CR> " git blame
-" Open current line int he browser
-"nnoremap <Leader>gb :.Gbrowse<CR>
-" Open visual selection in the browser
-"vnoremap <Leader>gb :Gbrowse<CR>
-"Add the entire file to the staging area
+" Open git status in interative window (similar to lazygit)
+nnoremap <Leader>gg :Git<CR>
+
+" Show `git status output`
+nnoremap <Leader>gi :Git status<CR>
+
+" Open commit window (creates commit after writing and saving commit msg)
+nnoremap <Leader>gc :Git commit<CR>
+
+" See who committed a particular line of code
+nnoremap <Leader>gb :Git blame<CR>
+
+" Other tools from fugitive
+nnoremap <Leader>gd :Git difftool<CR>
+nnoremap <Leader>gm :Git mergetool<CR>
+nnoremap <Leader>gdv :Gvdiffsplit<CR>
+nnoremap <Leader>gdh :Gdiffsplit<CR>
 "nnoremap <Leader>gaf :Gw<CR>    "git add file
 endif
 " }}}
+
