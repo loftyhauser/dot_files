@@ -139,7 +139,10 @@ call plug#begin()
 	" Plug 'airblade/vim-gitgutter'
 	Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.0' } " plugin for tab line at the top
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
+	Plug 'dense-analysis/ale' " linting and fixing code.
+	Plug 'lewis6991/gitsigns.nvim' " text buffer Git integration.
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
+	Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " File explorer
 	Plug 'tpope/vim-fugitive' " Git integration
 call plug#end()
 " }}}
@@ -233,6 +236,75 @@ nnoremap <leader>gs :Magit<CR>  " git status
 nnoremap <leader>gP :! git push<CR> " git push
 " Enable deletion of untracked files in Magit
 " let g:magit_discard_untracked_do_delete=1
+endif
+" }}}
+
+" Plugin: dense-analysis/ale {{{
+if has_key(plugs, 'ale')
+	" Ignore git commit when linting (highly annoying)
+	let g:ale_pattern_options = {
+	\		'COMMIT_EDITMSG$': {'ale_linters': [], 'ale_fixers': []}
+	\	}
+	let g:ale_linters = {
+	\	'yaml': ['yamllint'],
+	\	'cpp': ['clangd', 'clangtidy'],
+	\	'c': ['clangd', 'clangtidy'],
+	\	'asciidoc': ['cspell'],
+	\	'markdown': ['cspell']
+	\	}
+	let g:ale_linter_aliases = {
+	\	'asciidoctor': 'asciidoc'
+	\}
+	let g:ale_fixers = {
+	\	'cpp': ['clang-format'],
+	\	'c': ['clang-format']}
+	let g:ale_linters_explicit = 0
+	let g:ale_completion_enabled = 1
+	let g:ale_echo_msg_format = '[%linter%] %s [%severity%]'
+	let g:ale_set_balloons=1
+	let g:ale_hover_to_floating_preview=1
+	let g:ale_use_global_executables = 1
+	let g:ale_sign_column_always = 1
+	let g:ale_disable_lsp = 1
+
+	" Cspell options
+	let g:ale_cspell_use_global = 1
+	let g:ale_cspell_options = '-c cspell.json'
+
+	" Clang Tidy configuration
+	let g:ale_cpp_clangtidy_options = '-checks=-*,cppcoreguidelines-*'
+	let g:ale_cpp_clangtidy_checks = ['readability-*,performance-*,bugprone-*,misc-*']
+	let g:ale_cpp_clangtidy_checks += ['clang-analyzer-cplusplus-doc-comments']
+
+	let g:ale_c_clangtidy_options = '-checks=-*,cppcoreguidelines-*'
+	let g:ale_c_clangtidy_checks = ['readability-*,performance-*,bugprone-*,misc-*']
+	let g:ale_c_clangtidy_checks += ['-readability-function-cognitive-complexity']
+	let g:ale_c_clangtidy_checks += ['-readability-identifier-length']
+	let g:ale_c_clangtidy_checks += ['-misc-redundant-expression']
+	let g:ale_c_build_dir_names = ['build', 'release', 'debug']
+	let g:ale_set_balloons=1
+	let g:ale_hover_to_floating_preview=1
+
+	" Automatic fixing
+	autocmd FileType c nnoremap <leader>f <Plug>(ale_fix)
+
+	" This function searches for the first clang-tidy config in parent directories and sets it
+	function! SetClangTidyConfig()
+		let l:config_file = findfile('.clang-tidy', expand('%:p:h').';')
+		if !empty(l:config_file)
+			let g:ale_c_clangtidy_options = '--config=' . l:config_file
+			let g:ale_cpp_clangtidy_options = '--config=' . l:config_file
+		endif
+	endfunction
+
+	" Run this for c and c++ files
+	autocmd BufRead,BufNewFile *.c,*.cpp,*.h,*.hpp call SetClangTidyConfig()
+
+	" Diagnostics
+	let g:ale_use_neovim_diagnostics_api = 1
+	let g:airline#extensions#ale#enabled = 1
+	" let g:ale_sign_error = '>>'
+	" let g:ale_sign_warning = '!!'
 endif
 " }}}
 
