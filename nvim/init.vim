@@ -146,6 +146,7 @@ call plug#begin()
 	Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.0' } " plugin for tab line at the top
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
 	Plug 'dense-analysis/ale' " linting and fixing code.
+	Plug 'jeetsukumaran/vim-buffergator' " easy switching between buffers.
 	Plug 'lewis6991/gitsigns.nvim' " text buffer Git integration.
 	Plug 'mbbill/undotree' " Undo/Redo History Visualizer
 	Plug 'morhetz/gruvbox' " Gruvbox: Color Scheme
@@ -322,6 +323,12 @@ if has_key(plugs, 'ale')
 	" let g:ale_sign_error = '>>'
 	" let g:ale_sign_warning = '!!'
 endif
+" }}}
+
+
+" Plugin: jeetsukumaran/vim-buffergator {{{
+nmap <silent> <leader>bb :BuffergatorOpen<CR>
+nmap <silent> <leader>bB :BuffergatorOpenInTab<CR>
 " }}}
 
 " Plugin: tpope/vim-fugitive {{{
