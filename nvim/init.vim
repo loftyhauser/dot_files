@@ -327,7 +327,6 @@ if has_key(plugs, 'ale')
 endif
 " }}}
 
-
 " Plugin: jeetsukumaran/vim-buffergator {{{
 nmap <silent> <leader>bb :BuffergatorOpen<CR>
 nmap <silent> <leader>bB :BuffergatorOpenInTab<CR>
@@ -376,6 +375,81 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \ }
 " }}}
 
+
+" Plugin: neovim/nvim-lspconfig: language server configs {{{
+lua << EOF
+local lspconfig = require'lspconfig'
+lspconfig.vimls.setup {}
+lspconfig.dockerls.setup {}
+lspconfig.pyright.setup {}
+lspconfig.tailwindcss.setup{}
+lspconfig.ts_ls.setup {
+  on_attach = function(client, bufnr)
+	client.config.flags = {
+      debounce_text_changes = 150,  -- Adjust this value as needed
+    }
+    client.resolved_capabilities.document_formatting = false
+    client.resolved_capabilities.document_range_formatting = false
+  end,
+  filetypes = { "typescript", "typescriptreact", "typescript.tsx" },
+  cmd = { "typescript-language-server", "--stdio" }
+}
+lspconfig.robotframework_ls.setup({})
+lspconfig.clangd.setup{
+	cmd = { "clangd", "--background-index" },
+	filetypes = { "c", "cpp" },
+}
+
+-- Global mappings.
+-- See `:help vim.diagnostic.*` for documentation on any of the below functions
+vim.keymap.set('n', '<space>e', vim.diagnostic.open_float)
+vim.keymap.set('n', '[d', vim.diagnostic.goto_prev)
+vim.keymap.set('n', ']d', vim.diagnostic.goto_next)
+vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist)
+
+-- Use LspAttach autocommand to only map the following keys
+-- after the language server attaches to the current buffer
+vim.api.nvim_create_autocmd('LspAttach', {
+	group = vim.api.nvim_create_augroup('UserLspConfig', {}),
+	callback = function(ev)
+		-- Enable completion triggered by <c-x><c-o>
+		vim.bo[ev.buf].omnifunc = 'v:lua.vim.lsp.omnifunc'
+
+		-- Buffer local mappings.
+		-- See `:help vim.lsp.*` for documentation on any of the below functions
+		local opts = { buffer = ev.buf }
+		vim.keymap.set('n', 'gD', vim.lsp.buf.declaration, opts)
+		vim.keymap.set('n', 'gd', vim.lsp.buf.definition, opts)
+		vim.keymap.set('n', '<leader>K', vim.lsp.buf.hover, opts)
+		vim.keymap.set('i', '<leader>K', vim.lsp.buf.hover, opts)
+		vim.keymap.set('n', 'gi', vim.lsp.buf.implementation, opts)
+		vim.keymap.set('n', '<C-k>', vim.lsp.buf.signature_help, opts)
+		vim.keymap.set('n', '<space>wa', vim.lsp.buf.add_workspace_folder, opts)
+		vim.keymap.set('n', '<space>wr', vim.lsp.buf.remove_workspace_folder, opts)
+		vim.keymap.set('n', '<space>wl', function()
+			print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+		end, opts)
+		vim.keymap.set('n', '<space>D', vim.lsp.buf.type_definition, opts)
+		vim.keymap.set('n', '<space>rn', vim.lsp.buf.rename, opts)
+		vim.keymap.set({ 'n', 'v' }, '<space>ca', vim.lsp.buf.code_action, opts)
+		vim.keymap.set('n', 'gr', vim.lsp.buf.references, opts)
+		vim.keymap.set('n', '<space>f', function()
+			vim.lsp.buf.format { async = true }
+		end, opts)
+	end,
+})
+
+-- Diagnostics for LSP
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(
+	vim.lsp.diagnostic.on_publish_diagnostics, {
+		virtual_text = false,
+		signs = false,
+		underline = false,
+		update_in_insert = false,
+	}
+)
+EOF
+" }}}
 
 " Plugin: puremourning/vimspector {{{
 nnoremap <Leader>dd :call vimspector#Launch()<CR>
