@@ -116,8 +116,8 @@ set foldenable
 "   a fold)
 " - expr (fold level is calculated for each line by providing a special function)
 set foldmethod=marker
-" Set the fold level to start with all folds open
-set foldlevelstart=99
+" Set the fold level to start with all folds close
+set foldlevelstart=0
 " Set the fold nesting level (default is 20)
 set foldnestmax=10
 " Automatically close folds when the cursor leaves them
@@ -154,7 +154,7 @@ set background=dark " Optional: change to 'light' for the light version
 set background=dark " Optional: change to 'light' for the light version
 " }}}
 
-" gitgutter plugin {{{
+" Plugin: airblade/vim-gitgutter {{{
 " These settings come from https://jakobgm.com/posts/vim/git-integration/index.html
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '>'
@@ -174,7 +174,7 @@ nmap <Leader>ga <Plug>(GitGutterStageHunk) " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)  " git undo (chunk)
 " }}}
 
-" vimagit plugin {{{
+" Plugin: jreybert/vimagit {{{
 " Open vimagit pane
 nnoremap <leader>gs :Magit<CR>  " git status
 " Push to remote
@@ -183,7 +183,7 @@ nnoremap <leader>gP :! git push<CR> " git push
 " let g:magit_discard_untracked_do_delete=1
 " }}}
 
-" vim-fugitive  and vim-rhubarb plugins {{{
+" Plugin: tpope/vim-fugitive tpope/vim-rhubarb {{{
 " Show commits for every source line
 nnoremap <Leader>gb :Gblame<CR> " git blame
 " Open current line int he browser
