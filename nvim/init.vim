@@ -132,10 +132,10 @@ compiler gcc
 
 " Load vim plugins {{{
 call plug#begin()
-    Plug 'olimorris/onedarkpro.nvim'
-    Plug 'nvim-tree/nvim-web-devicons'
-    Plug 'jreybert/vimagit'
-    Plug 'tpope/vim-rhubarb'
+    "Plug 'olimorris/onedarkpro.nvim'
+    "Plug 'nvim-tree/nvim-web-devicons'
+    "Plug 'jreybert/vimagit'
+    "Plug 'tpope/vim-rhubarb'
 	" Plug 'airblade/vim-gitgutter'
 	Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.0' } " plugin for tab line at the top
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
@@ -144,37 +144,45 @@ call plug#begin()
 call plug#end()
 " }}}
 
+" Update all plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+	\| :PlugInstall --sync
+\| endif
+
 " Plugin: olimorris/onedarkpro.nvim {{{
-colorscheme onedark
-set background=dark " Optional: change to 'light' for the light version
+"colorscheme onedark
+"set background=dark " Optional: change to 'light' for the light version
 " }}}
 
 " Plugin: catppuccin/nvim {{{
-if has_key(plugs, 'vim-gitgutter')
-"colorscheme catppuccin
-"set background=dark " Optional: change to 'light' for the light version
-endif
+colorscheme catppuccin
+set background=dark " Optional: change to 'light' for the light version
 " }}}
 
 " Plugin: airblade/vim-gitgutter {{{
 if has_key(plugs, 'vim-gitgutter')
+	let g:gitgutter_enabled = 1
+	let g:gitgutter_sign_added = '+'
+	let g:gitgutter_sign_modified = '>'
+	let g:gitgutter_sign_removed = '-'
+	let g:gitgutter_sign_removed_first_line = '^'
+	let g:gitgutter_sign_modified_removed = '<'
+	nmap <Leader>gs <Plug>(GitGutterStageHunk)
+	nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+	nmap <Leader>gn <Plug>(GitGutterNextHunk)
+	nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+	nmap <Leader>gh <Plug>(GitGutterPreviewHunk)
+	function! GitStatus()
+		let [a,m,r] = GitGutterGetHunkSummary()
+		return printf('+%d ~%d -%d', a, m, r)
+	endfunction
+	set statusline+=%{GitStatus()}
 " These settings come from https://jakobgm.com/posts/vim/git-integration/index.html
-let g:gitgutter_sign_added = '+'
-let g:gitgutter_sign_modified = '>'
-let g:gitgutter_sign_removed = '-'
-let g:gitgutter_sign_removed_first_line = '^'
-let g:gitgutter_sign_modified_removed = '<'
 "let g:gitgutter_override_sign_column_highlight = 1
 "highlight SignColumn guibg=bg
 "highlight SignColumn ctermbg=bg
 " Update sign column every quarter second
-set updatetime=250
-" Jump between hunks
-nmap <Leader>gn <Plug>(GitGutterNextHunk) " git next
-nmap <Leader>gp <Plug>(GitGutterPrevHunk) " git previous
-" Hunk-add and hunk-revert for chunk staging
-nmap <Leader>ga <Plug>(GitGutterStageHunk) " git add (chunk)
-nmap <Leader>gu <Plug>(GitGutterUndoHunk)  " git undo (chunk)
+"set updatetime=250
 endif
 " }}}
 
