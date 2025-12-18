@@ -159,6 +159,45 @@ autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
 set background=dark " Optional: change to 'light' for the light version
 " }}}
 
+" Plugin: lewis6991/gitsigns.nvim {{{
+if has_key(plugs, 'gitsigns.nvim')
+	lua << EOF
+		require("gitsigns").setup{
+			signs = {
+				add          = { text = '│' },
+				change       = { text = '│' },
+				delete       = { text = '_' },
+				topdelete    = { text = '‾' },
+				changedelete = { text = '~' },
+				untracked    = { text = '┆' },
+			},
+			attach_to_untracked = true,
+			current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+			current_line_blame_opts = {
+				virt_text = true,
+				virt_text_pos = 'eol', -- 'eol' | 'overlay' | 'right_align'
+				delay = 1000,
+				ignore_whitespace = false,
+			},
+		}
+EOF
+	" Popup what's changed in a hunk under cursor
+	nnoremap <Leader>gp :Gitsigns preview_hunk<CR>
+	" Stage/reset individual hunks under cursor in a file
+	nnoremap <Leader>gs	:Gitsigns stage_hunk<CR>
+	nnoremap <Leader>gr :Gitsigns reset_hunk<CR>
+	nnoremap <Leader>gu :Gitsigns undo_stage_hunk<CR>
+
+	" Stage/reset all hunks in a file
+	nnoremap <Leader>gS :Gitsigns stage_buffer<CR>
+	nnoremap <Leader>gU :Gitsigns reset_buffer_index<CR>
+	nnoremap <Leader>gR :Gitsigns reset_buffer<CR>
+
+	" Git blame
+	nnoremap <Leader>gB :Gitsigns toggle_current_line_blame<CR>
+endif
+" }}}
+
 " Plugin: airblade/vim-gitgutter {{{
 if has_key(plugs, 'vim-gitgutter')
 	let g:gitgutter_enabled = 1
