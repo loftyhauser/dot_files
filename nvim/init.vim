@@ -157,6 +157,7 @@ call plug#begin()
 	Plug 'tpope/vim-fugitive' " Git integration
 	Plug 'vim-airline/vim-airline' " Visual status line indicators
 	Plug 'vim-airline/vim-airline-themes' " Themes for airline
+	Plug 'voldikss/vim-floaterm' " Floating terminal support
 call plug#end()
 " }}}
 
@@ -374,6 +375,16 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \ }
 " }}}
 
+
+" Plugin: voldikss/vim {{{
+nnoremap <C-t> :FloatermToggle!<CR>
+augroup FloattermMapping
+	autocmd!
+	autocmd FileType floaterm nnoremap <buffer> <Esc> <C-\><C-n>:FloatermToggle<CR>
+	autocmd FileType floaterm inoremap <buffer> <Esc> <C-\><C-n>:FloatermToggle<CR>
+augroup end
+tnoremap <Esc> <C-\><C-n>:FloatermToggle<CR>
+" }}}
 
 " Plugin: vim-airline/vim-airline {{{
 let g:airline_powerline_fonts = 0
