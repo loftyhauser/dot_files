@@ -147,6 +147,7 @@ call plug#begin()
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
 	Plug 'dense-analysis/ale' " linting and fixing code.
 	Plug 'lewis6991/gitsigns.nvim' " text buffer Git integration.
+	Plug 'mbbill/undotree' " Undo/Redo History Visualizer
 	Plug 'morhetz/gruvbox' " Gruvbox: Color Scheme
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
 	Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " File explorer
@@ -248,6 +249,10 @@ nnoremap <leader>gP :! git push<CR> " git push
 " Enable deletion of untracked files in Magit
 " let g:magit_discard_untracked_do_delete=1
 endif
+" }}}
+
+" Plugin: mbbill/undotree {{{
+nmap <F5> :UndotreeToggle<CR>
 " }}}
 
 " Plugin: dense-analysis/ale {{{
