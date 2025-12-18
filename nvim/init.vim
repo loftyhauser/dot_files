@@ -134,13 +134,13 @@ compiler gcc
 call plug#begin()
     Plug 'olimorris/onedarkpro.nvim'
     Plug 'nvim-tree/nvim-web-devicons'
-    Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.1' } " plugin for tab line at the top
-    Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
-    Plug 'airblade/vim-gitgutter'
     Plug 'jreybert/vimagit'
-    Plug 'tpope/vim-fugitive'
     Plug 'tpope/vim-rhubarb'
+	" Plug 'airblade/vim-gitgutter'
+	Plug 'akinsho/bufferline.nvim', { 'tag': 'v4.9.0' } " plugin for tab line at the top
+	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
+	Plug 'tpope/vim-fugitive' " Git integration
 call plug#end()
 " }}}
 
@@ -150,11 +150,14 @@ set background=dark " Optional: change to 'light' for the light version
 " }}}
 
 " Plugin: catppuccin/nvim {{{
+if has_key(plugs, 'vim-gitgutter')
 "colorscheme catppuccin
-set background=dark " Optional: change to 'light' for the light version
+"set background=dark " Optional: change to 'light' for the light version
+endif
 " }}}
 
 " Plugin: airblade/vim-gitgutter {{{
+if has_key(plugs, 'vim-gitgutter')
 " These settings come from https://jakobgm.com/posts/vim/git-integration/index.html
 let g:gitgutter_sign_added = '+'
 let g:gitgutter_sign_modified = '>'
@@ -172,18 +175,22 @@ nmap <Leader>gp <Plug>(GitGutterPrevHunk) " git previous
 " Hunk-add and hunk-revert for chunk staging
 nmap <Leader>ga <Plug>(GitGutterStageHunk) " git add (chunk)
 nmap <Leader>gu <Plug>(GitGutterUndoHunk)  " git undo (chunk)
+endif
 " }}}
 
 " Plugin: jreybert/vimagit {{{
+if has_key(plugs, 'vimagit')
 " Open vimagit pane
 nnoremap <leader>gs :Magit<CR>  " git status
 " Push to remote
 nnoremap <leader>gP :! git push<CR> " git push
 " Enable deletion of untracked files in Magit
 " let g:magit_discard_untracked_do_delete=1
+endif
 " }}}
 
 " Plugin: tpope/vim-fugitive tpope/vim-rhubarb {{{
+if has_key(plugs, 'vim-fugitive')
 " Show commits for every source line
 nnoremap <Leader>gb :Gblame<CR> " git blame
 " Open current line int he browser
@@ -192,5 +199,5 @@ nnoremap <Leader>gb :Gblame<CR> " git blame
 "vnoremap <Leader>gb :Gbrowse<CR>
 "Add the entire file to the staging area
 "nnoremap <Leader>gaf :Gw<CR>    "git add file
-
+endif
 " }}}
