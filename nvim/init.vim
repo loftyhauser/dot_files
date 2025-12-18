@@ -152,6 +152,7 @@ call plug#begin()
 	Plug 'morhetz/gruvbox' " Gruvbox: Color Scheme
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
 	Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " File explorer
+	Plug 'puremourning/vimspector' " Debugger integration
 	Plug 'ryanoasis/vim-devicons' " Developer font icons
 	Plug 'tpope/vim-dispatch' " Asynchronous execution
 	Plug 'tpope/vim-fugitive' " Git integration
@@ -375,6 +376,16 @@ let g:NERDTreeGitStatusIndicatorMapCustom = {
 \ }
 " }}}
 
+
+" Plugin: puremourning/vimspector {{{
+nnoremap <Leader>dd :call vimspector#Launch()<CR>
+nnoremap <Leader>dx :call vimspector#Reset()<CR>
+nnoremap <Leader>db :call vimspector#ToggleBreakpoint()<CR>
+nnoremap <Leader>dc :call vimspector#Continue()<CR>
+nnoremap <Leader>ds :call vimspector#StepInto()<CR>
+nnoremap <Leader>dn :call vimspector#StepOver()<CR>
+nnoremap <Leader>df :call vimspector#StepOut()<CR>
+" }}}
 
 " Plugin: voldikss/vim {{{
 nnoremap <C-t> :FloatermToggle!<CR>
