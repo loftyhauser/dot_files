@@ -147,8 +147,11 @@ call plug#begin()
 	Plug 'catppuccin/nvim', { 'as': 'catppuccin' } " a beautiful color scheme
 	Plug 'dense-analysis/ale' " linting and fixing code.
 	Plug 'lewis6991/gitsigns.nvim' " text buffer Git integration.
+	Plug 'morhetz/gruvbox' " Gruvbox: Color Scheme
 	Plug 'neovim/nvim-lspconfig' " Language Server Protocol Config
 	Plug 'preservim/nerdtree', { 'on': 'NERDTreeToggle' } " File explorer
+	Plug 'ryanoasis/vim-devicons' " Developer font icons
+	Plug 'tpope/vim-dispatch' " Asynchronous execution
 	Plug 'tpope/vim-fugitive' " Git integration
 	Plug 'vim-airline/vim-airline' " Visual status line indicators
 	Plug 'vim-airline/vim-airline-themes' " Themes for airline
