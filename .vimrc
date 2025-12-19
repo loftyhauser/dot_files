@@ -90,7 +90,15 @@ set ignorecase
 set smartcase
 " Show matching brackets
 set showmatch
-" set wildmenu
+" " --------------------------------------------------------------------------------
+" " How to do 90% of What Plugins Do (With Just Vim)
+" " --------------------------------------------------------------------------------
+" 
+" set exrc                    " Execute a vimrc in project folder
+" set secure                  " Don't execute dangerous commands
+" set path+=**                " Search through subfolders
+" 
+set wildmenu
 " set autoindent
 set smartindent
 " set nowrap
@@ -158,20 +166,73 @@ set noequalalways
 compiler gcc
 " }}}
 
-" call plug#begin()
+" Load vim plugins {{{
+call plug#begin()
+    Plug 'vim-airline/vim-airline'
+    Plug 'vim-airline/vim-airline-themes'
+    Plug 'jiangmiao/auto-pairs'
+    Plug 'airblade/vim-gitgutter'
+    Plug 'tpope/vim-fugitive'
+call plug#end()
+" }}}
+
+" Update all plugins
+autocmd VimEnter * if len(filter(values(g:plugs), '!isdirectory(v:val.dir)'))
+	\| :PlugInstall --sync
+\| endif
+
+" Plugin: airblade/vim-gitgutter {{{
+if has_key(plugs, 'vim-gitgutter')
+    let g:gitgutter_enabled = 1
+    let g:gitgutter_sign_added = '+'
+    let g:gitgutter_sign_modified = '>'
+    let g:gitgutter_sign_removed = '-'
+    let g:gitgutter_sign_removed_first_line = '^'
+    let g:gitgutter_sign_modified_removed = '<'
+    nmap <Leader>gs <Plug>(GitGutterStageHunk)
+    nmap <Leader>gu <Plug>(GitGutterUndoHunk)
+    nmap <Leader>gn <Plug>(GitGutterNextHunk)
+    nmap <Leader>gp <Plug>(GitGutterPrevHunk)
+    nmap <Leader>gh <Plug>(GitGutterPreviewHunk)
+    function! GitStatus()
+        let [a,m,r] = GitGutterGetHunkSummary()
+        return printf('+%d ~%d -%d', a, m, r)
+    endfunction
+    set statusline+=%{GitStatus()}
+endif
+" }}}
+
+" Plugin: tpope/vim-fugitive {{{
+" Open git status in interative window (similar to lazygit)
+nnoremap <Leader>gg :Git<CR>
+
+" Show `git status output`
+nnoremap <Leader>gi :Git status<CR>
+
+" Open commit window (creates commit after writing and saving commit msg)
+nnoremap <Leader>gc :Git commit<CR>
+
+" See who committed a particular line of code
+nnoremap <Leader>gb :Git blame<CR>
+
+" Other tools from fugitive
+nnoremap <Leader>gd :Git difftool<CR>
+nnoremap <Leader>gm :Git mergetool<CR>
+nnoremap <Leader>gdv :Gvdiffsplit<CR>
+nnoremap <Leader>gdh :Gdiffsplit<CR>
+
+" Add the entire file to the staging area
+nnoremap <Leader>gaf :Gw<CR> " git add file
+" }}}
+
 " 
 " " Other
 " Plug 'preservim/NERDTree'
 " Plug 'preservim/NERDcommenter'
 " Plug 'preservim/tagbar'
-" Plug 'jiangmiao/auto-pairs'
-" Plug 'airblade/vim-gitgutter'
-" Plug 'tpope/vim-fugitive'
 " Plug 'tpope/vim-dispatch'
 " Plug 'tpope/vim-repeat'
 " Plug 'tpope/vim-unimpaired'
-" Plug 'vim-airline/vim-airline'
-" Plug 'vim-airline/vim-airline-themes'
 " Plug 'igankevich/mesonic'
 " Plug 'sheerun/vim-polyglot'
 " Plug 'dyng/ctrlsf.vim'
@@ -412,15 +473,6 @@ compiler gcc
 " "    echo "<F7> will run: " . bpath
 " "endfunction
 " 
-" 
-" " --------------------------------------------------------------------------------
-" " How to do 90% of What Plugins Do (With Just Vim)
-" " --------------------------------------------------------------------------------
-" 
-" set exrc                    " Execute a vimrc in project folder
-" set secure                  " Don't execute dangerous commands
-" set path+=**                " Search through subfolders
-" set wildmenu                " Display all matching files when tab complete
 " 
 " " ------------------------------------------------------------
 " " NETRW
