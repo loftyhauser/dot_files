@@ -173,6 +173,7 @@ call plug#begin()
     Plug 'jiangmiao/auto-pairs'
     Plug 'airblade/vim-gitgutter'
     Plug 'tpope/vim-fugitive'
+    Plug 'jreybert/vimagit'
 call plug#end()
 " }}}
 
@@ -203,29 +204,39 @@ endif
 " }}}
 
 " Plugin: tpope/vim-fugitive {{{
-" Open git status in interative window (similar to lazygit)
-nnoremap <Leader>gg :Git<CR>
+if has_key(plugs, 'vim-fugitive')
+    " Open git status in interative window (similar to lazygit)
+    nnoremap <Leader>gg :Git<CR>
 
-" Show `git status output`
-nnoremap <Leader>gi :Git status<CR>
+    " Show `git status output`
+    nnoremap <Leader>gi :Git status<CR>
 
-" Open commit window (creates commit after writing and saving commit msg)
-nnoremap <Leader>gc :Git commit<CR>
+    " Open commit window (creates commit after writing and saving commit msg)
+    nnoremap <Leader>gc :Git commit<CR>
 
-" See who committed a particular line of code
-nnoremap <Leader>gb :Git blame<CR>
+    " See who committed a particular line of code
+    nnoremap <Leader>gb :Git blame<CR>
 
-" Other tools from fugitive
-nnoremap <Leader>gd :Git difftool<CR>
-nnoremap <Leader>gm :Git mergetool<CR>
-nnoremap <Leader>gdv :Gvdiffsplit<CR>
-nnoremap <Leader>gdh :Gdiffsplit<CR>
+    " Other tools from fugitive
+    nnoremap <Leader>gd :Git difftool<CR>
+    nnoremap <Leader>gm :Git mergetool<CR>
+    nnoremap <Leader>gdv :Gvdiffsplit<CR>
+    nnoremap <Leader>gdh :Gdiffsplit<CR>
 
-" Add the entire file to the staging area
-nnoremap <Leader>gaf :Gw<CR> " git add file
+    " Add the entire file to the staging area
+    nnoremap <Leader>gaf :Gw<CR> " git add file
+endif
 " }}}
 
-" 
+" Plugin: jreybert/vimagit {{{
+if has_key(plugs, 'vimagit')
+    " Open vimagit pane
+    nnoremap <Leader>gs :Magit<CR> " git status
+    " Push to remote
+    nnoremap <Leader>gP :! git push<CR> " git push
+endif
+" }}}
+
 " " Other
 " Plug 'preservim/NERDTree'
 " Plug 'preservim/NERDcommenter'
