@@ -29,7 +29,7 @@ Plug 'kien/ctrlp.vim'
 "Plug 'Yggdroot/indentLine'
 "Plug 'matze/vim-move'
 "Plug 'junegunn/fzf.vim'
-Plug 'ycm-core/YouCompleteMe'
+"Plug 'ycm-core/YouCompleteMe'
 Plug 'cdelledonne/vim-cmake'
 "Plug 'ilyachur/cmake4vim'
 call plug#end()
@@ -202,6 +202,7 @@ set splitbelow              " Always split below
 set mouse=a
 set updatetime=100          " Updates every 100ms
 set foldmethod=syntax
+au BufRead,BufNewFile *.bdf set filetype=nastran
 
 " ------------------------------------------------------------
 " MAPPINGS
